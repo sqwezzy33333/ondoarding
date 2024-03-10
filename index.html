@@ -2,12 +2,40 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="env.js"></script>
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
     <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="env.js"></script>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Onboarding</title>
   </head>
-  <body></body>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <header></header>
+        <div class="content">
+          <h2 id="title" class="content-title"></h2>
+          <p class="description" id="description"></p>
+          <div class="card" id="card">
+            <!-- <dotlottie-player
+              src="https://lottie.host/31b0c1dc-5ff1-45df-b96c-fa1200c8c554/QTcdtW0332.json"
+              background="transparent"
+              speed="1"
+              style="width: 300px; height: 300px"
+              direction="1"
+              playMode="normal"
+              loop
+              controls
+              autoplay
+              id="lottie"
+            ></dotlottie-player> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

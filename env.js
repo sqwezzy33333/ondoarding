@@ -2,7 +2,7 @@ class Environment {
   static scriptPath = "https://js.flaw.space/magic/";
 }
 
-const SCRIPTS = ["magic.executor.v2.js", "magic.html.v2.js"];
+const SCRIPTS = ["magic.executor.v2.js", "magic.html.v2.js", "magic.utils.v1.js"];
 
 loadScripts();
 
