@@ -295,7 +295,7 @@ class CardFactory {
 }
 
 class Answer {
-  static CLASS_NAME = "answer__";
+  static CLASS_NAME = "card answer__";
   data;
   value;
   container = h.fromId(card);
@@ -306,6 +306,7 @@ class Answer {
     this.type = data.type;
     this.data = data;
     this.parent = parent;
+    this.container.get().className = '';
     this.container.cl(Answer.CLASS_NAME + data.type);
   }
 
@@ -359,6 +360,7 @@ class AnimationCard extends Answer {
     Object.entries(AnimationCard.configuration).forEach(([key, value]) => {
       this.animationElement.setA(key, value);
     });
+    this.animationElement.style().width(500).height(600);
     this.animationElement.setA("src", this.data.additional);
   }
 }
