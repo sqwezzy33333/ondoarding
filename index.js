@@ -1,5 +1,4 @@
 let DATA = null;
-const LANG = navigator.language || navigator.userLanguage;
 const title = "title";
 const card = "card";
 const description = "description";
@@ -45,7 +44,7 @@ class CardController {
   }
 
   end() {
-    this.title.text("Завершено", false);
+    this.title.text("global.success");
   }
 }
 
