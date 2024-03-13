@@ -1,242 +1,12 @@
-const DATA = [
-  {
-    id: 5905,
-    name: "Анимация номер 1",
-    type: "animation",
-    position: 1,
-    answers: [],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "./animation/1.json",
-    required: false,
-    action: null,
-  },
-  {
-    id: 5905,
-    name: "Анимация номер 2",
-    type: "animation",
-    position: 1,
-    answers: [],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "./animation/2.json",
-    required: false,
-    action: null,
-  },
-  {
-    id: 5905,
-    name: "Анимация номер 3",
-    type: "animation",
-    position: 1,
-    answers: [],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "./animation/3.json",
-    required: false,
-    action: null,
-  },
-  {
-    id: 5905,
-    name: "Анимация номер 4",
-    type: "animation",
-    position: 1,
-    answers: [],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "./animation/4.json",
-    required: false,
-    action: null,
-  },
-  {
-    id: 5905,
-    name: "<p>Категория продаваемых товаров</p>",
-    type: "multiple_choice",
-    position: 4,
-    answers: [
-      {
-        id: 9102,
-        name: "Одежда и обувь",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9103,
-        name: "Красота и здоровье",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9104,
-        name: "Аксессуары",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9105,
-        name: "Бытовая техника",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9106,
-        name: "Электроника",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9107,
-        name: "Дом и сад",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9108,
-        name: "Детские товары",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9109,
-        name: "Товары для животных",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9110,
-        name: "Спорт и отдых",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9111,
-        name: "Хобби и творчество",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9112,
-        name: "Строительство и ремонт",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9113,
-        name: "Бытовая химия и гигиена",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9114,
-        name: "B2B",
-        type: "drop-down",
-        action: null,
-      },
-    ],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "",
-    required: false,
-    action: null,
-  },
-  {
-    id: 5907,
-    name: "<p>​Кол-во артикулов<br></p>",
-    type: "single_choice",
-    position: 6,
-    answers: [
-      {
-        id: 9115,
-        name: "до 10",
-        type: "object_chooser",
-        action: null,
-      },
-      {
-        id: 9116,
-        name: "от 10 до 100",
-        type: "object_chooser",
-        action: null,
-      },
-      {
-        id: 9117,
-        name: "от 100 до 1000",
-        type: "object_chooser",
-        action: null,
-      },
-      {
-        id: 9118,
-        name: "от 1000 и более",
-        type: "object_chooser",
-        action: null,
-      },
-    ],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "",
-    required: false,
-    action: null,
-  },
-  {
-    id: 5908,
-    name: "<p>На каких площадках размещаете товары<br></p><p><br></p>",
-    type: "multiple_choice",
-    position: 7,
-    answers: [
-      {
-        id: 9489,
-        name: "Авито",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9490,
-        name: "OZON",
-        type: "drop-down",
-        action: null,
-      },
-      {
-        id: 9491,
-        name: "WB",
-        type: "drop-down",
-        action: null,
-      },
-    ],
-    questionnaireTemplate: {
-      key: 5852,
-      value: "Опрос для продавцов",
-      additional: null,
-    },
-    additional: "",
-    required: false,
-    action: null,
-  },
-];
-
+let DATA = null;
+const LANG = navigator.language || navigator.userLanguage;
 const title = "title";
 const card = "card";
 const description = "description";
-const submitText = "Submit";
 const animationElement = "lottie";
 
 function init() {
-  new CardController().start();
+  getQuestions();
 }
 
 class CardController {
@@ -249,12 +19,13 @@ class CardController {
 
   start() {
     this.data = DATA;
+    console.log(DATA);
     this.drawCard(this.index);
   }
 
   drawCard(index) {
     const item = this.data[index];
-    this.title.text(item.name, false);
+    this.title.text(removeSubStr(item.name));
     this.drawClass = new CardFactory(item, this);
   }
 
@@ -294,19 +65,25 @@ class CardFactory {
   }
 }
 
+const NONE_BTN = "button.none";
+const CONTINUE_BTN = "button.continue";
 class Answer {
   static CLASS_NAME = "card answer__";
   data;
   value;
   container = h.fromId(card);
   parent;
-  submitBtn = h.div("submit").cl("submit-btn").text(submitText, false);
+  submitBtn = h
+    .tag("button")
+    .cl("submit submit-btn")
+    .text(CONTINUE_BTN)
+    .setA("disabled", true);
 
   constructor(data, parent) {
     this.type = data.type;
     this.data = data;
     this.parent = parent;
-    this.container.get().className = '';
+    this.container.get().className = "";
     this.container.cl(Answer.CLASS_NAME + data.type);
   }
 
@@ -331,6 +108,10 @@ class Answer {
     this.submitBtn.appendTo(this.container).click(() => {
       this.parent.submitCurrentCard();
     });
+
+    if (this.isMultiSelect) {
+      this.submitBtn.text(NONE_BTN);
+    }
   }
 }
 
@@ -378,10 +159,19 @@ class ChoiseAnswer extends Answer {
 
     this.answers = data.answers;
 
+    this.init(data);
+  }
+
+  init(data) {
     if (!_e(data.type, "single_choice")) {
       this.isMultiSelect = true;
     }
     this.build();
+
+    if (this.isMultiSelect) {
+      this.submitBtn.get().removeAttribute("disabled");
+      return;
+    }
   }
 
   build() {
@@ -393,8 +183,16 @@ class ChoiseAnswer extends Answer {
       });
     }
 
+    this.submit();
+  }
+
+  submit() {
+    this.submitBtn.appendTo(this.container).click(() => {
+      this.parent.submitCurrentCard();
+    });
+
     if (this.isMultiSelect) {
-      this.submit();
+      this.submitBtn.text(NONE_BTN);
     }
   }
 
@@ -405,7 +203,7 @@ class ChoiseAnswer extends Answer {
   getItemDiv(answer) {
     return h
       .div(Answer.CLASS_NAME + "choise-item")
-      .text(answer.name, false)
+      .text(answer.name)
       .pointer()
       .click(this.itemClick);
   }
@@ -427,15 +225,35 @@ class ChoiseAnswer extends Answer {
     if (!this.isMultiSelect) {
       this.checkSelectedItems();
     }
-
     h.from(element).toggle(ChoiseAnswer.selectClass);
-
     this.setValue();
-
-    if (!this.isMultiSelect) {
-      this.parent.submitCurrentCard();
-    }
+    this.changeBtn();
+    this.changeBtnText();
   };
+
+  changeBtn() {
+    if (this.isMultiSelect) {
+      return;
+    }
+
+    if (this.data.answers.length) {
+      this.submitBtn.get().removeAttribute("disabled");
+    } else {
+      this.submitBtn.setA("disabled", true);
+    }
+  }
+
+  changeBtnText() {
+    if (!this.isMultiSelect) {
+      return;
+    }
+
+    if (this.data.answers.length) {
+      this.submitBtn.text(CONTINUE_BTN);
+    } else {
+      this.submitBtn.text(NONE_BTN);
+    }
+  }
 
   checkSelectedItems() {
     this.chooser.eachOf((div) => {
@@ -449,7 +267,6 @@ class ChoiseAnswer extends Answer {
     this.chooser.eachOf((div) => {
       if (h.from(div).ccl(ChoiseAnswer.selectClass)) {
         var index = this.getIndexOfAnswer(h.from(div));
-
         var obj;
 
         if (this.answers[index]) {
@@ -494,6 +311,20 @@ class CheckboxAnswer extends Answer {
   }
 }
 
-const log = {
-  trace() {},
-};
+function verifyResponse() {
+  return true;
+}
+
+function getQuestions() {
+  const PATH =
+    "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
+  Executor.runGet(PATH, (data) => {
+    DATA = data.content;
+
+    new CardController().start();
+  });
+}
+
+function removeSubStr(str) {
+  return str.replace("<p>", "").replace("</p>", "").replace("<br>", "");
+}
