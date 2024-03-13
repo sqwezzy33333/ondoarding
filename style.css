@@ -234,3 +234,19 @@ footer .footer-logo {
   color: #811811;
   border-color: #811811;
 }
+
+#initial-card{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.init-image{
+  max-width: 150px;
+}
+
+#init-btn{
+  max-width: 80px;
+  cursor: pointer;
+}

@@ -394,10 +394,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Onboarding</title>
+    <style>
+      .hidden {
+        display: none !important;
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
-      <div class="container">
+
+
+      <div id="initial-card">
+        <img class="init-image" src="./assets/init.png" alt="">
+        <button id="init-btn"></button>
+      </div>
+
+      <div class="container hidden" id="container">
         <header></header>
         <div class="content">
           <h2 id="title" class="content-title"></h2>

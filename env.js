@@ -10,6 +10,7 @@ const SCRIPTS = [
   "magic.utils.v1.js",
   "magic.page.v1.js",
   "magic.cache.v1.js",
+  "magic.dom.v2.js"
 ];
 
 setLanguage();

@@ -315,6 +315,10 @@ function verifyResponse() {
 }
 
 function getQuestions() {
+  h.fromId("init-btn").text("button.continue").click(() => {
+    h.fromId("initial-card").hide()
+    h.fromId("container").show();
+  })
   const PATH =
     "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
   Executor.runGet(PATH, (data) => {
