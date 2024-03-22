@@ -16,7 +16,7 @@
           { "animation.forecasts": "Прогнозы полетов" },
           { "animation.tracking": "Отслеживание полета" },
           { "animation.no_fear": "Летать без страха" },
-          { "animation.podcasts": "Пояснительные подкасты" },
+          { "animation.podcast": "Пояснительные подкасты" },
           { "animation.what_gender": "Какой ваш пол?" },
           {
             "qustion.what_purpose": "Какова ваша главная цель?",
@@ -203,6 +203,8 @@
             "button.continue": "Продолжить",
           },
           { "global.success": "Успешно" },
+          {'global.initial': "Боитесь летать?"},
+          {'global.name': 'Flight Buddy'}
         ],
 
         "en-EN": [
@@ -213,7 +215,7 @@
           { "animation.forecasts": "Flight Forecasts" },
           { "animation.tracking": "Flight Tracking" },
           { "animation.no_fear": "Flying without Fear" },
-          { "animation.podcasts": "Explanatory Podcasts" },
+          { "animation.podcast": "Explanatory Podcasts" },
           { "animation.what_gender": "What is your gender?" },
           {
             "qustion.what_purpose": "What is your main goal?",
@@ -399,6 +401,8 @@
             "button.continue": "Continue",
           },
           { "global.success": "Success" },
+          {'global.initial': "FEAR OF FLYING?"},
+          {'global.name': 'Flight Buddy'}
         ],
       };
     </script>
@@ -421,7 +425,9 @@
   <body>
     <div class="wrapper">
       <div id="initial-card">
+        <div data-text="global.name"></div>
         <img class="init-image" src="./assets/init.png" alt="" />
+        <div data-text="global.initial"></div>
         <button id="init-btn"></button>
       </div>
 

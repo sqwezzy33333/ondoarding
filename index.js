@@ -156,9 +156,17 @@ class AnimationCard extends Answer {
 
   constructor(data, parent) {
     super(data, parent);
+    this.path = data.additional;
+    this.presetClass();
     this.setTitle();
     this.createAnimationElement();
     this.submit();
+  }
+
+  presetClass() {
+    const splitName = this.data.name.split(".");
+    const className = splitName[splitName.length - 1];
+    this.container.cl("animation__" + className);
   }
 
   createAnimationElement() {
@@ -171,9 +179,7 @@ class AnimationCard extends Answer {
   }
 
   setTitle() {
-    this.path = stripHtml(this.data.name.match(/https?:\/\/[^\s]+/)[0]);
-    const title = stripHtml(this.data.name.replace(this.path, ""));
-    this.parent.title.text(title);
+    this.parent.title.text(this.data.name);
   }
 }
 
@@ -341,6 +347,7 @@ function getQuestions() {
     "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
   Executor.runGet(PATH, (data) => {
     DATA = data.content;
+    MagicPage.translatePage()
     new CardController().start();
   });
 }
@@ -350,3 +357,18 @@ function stripHtml(html) {
   tmp.innerHTML = html;
   return tmp.textContent || tmp.innerText || "";
 }
+
+// const payloadR = {
+//   id: 113,
+//   name: "animation.forecasts",
+//   type: "open",
+//   position: "5",
+//   answers: null,
+//   questionnaireTemplate: 9552,
+//   additional: "https://files.dennis.systems/api/v2/files/public/download/AA_D1c50a.20043",
+//   required: false,
+// };
+
+
+
+// Executor.runPutWithPayload("https://vote-api.dennis.systems/api/v2/questionnaire/question/edit", () => {}, payloadR) 
