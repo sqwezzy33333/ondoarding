@@ -5,10 +5,19 @@
     <script>
       localStorage.setItem(
         "___user_lang___",
-        navigator.language || navigator.userLanguage
+        navigator.language || navigator.userLanguage || "en-EN"
       );
       const GLOBAL_TRANSLATIONS = {
         "ru-RU": [
+          { "gender.male": "Мужской" },
+          { "gender.female": "Женский" },
+          { "gender.no": "Предпочитаю не отвечать" },
+          { "animation.turbulence": "Индикатор турбулентности" },
+          { "animation.forecasts": "Прогнозы полетов" },
+          { "animation.tracking": "Отслеживание полета" },
+          { "animation.no_fear": "Летать без страха" },
+          { "animation.podcasts": "Пояснительные подкасты" },
+          { "animation.what_gender": "Какой ваш пол?" },
           {
             "qustion.what_purpose": "Какова ваша главная цель?",
           },
@@ -98,7 +107,7 @@
             "answer.panic.attack": "Вероятность панической атаки",
           },
           {
-            "answer.enclosed space": "Закрытое пространство",
+            "answer.enclosed_space": "Закрытое пространство",
           },
           {
             "answer.every.moment": "Замечайте каждый момент полета самолета",
@@ -197,6 +206,15 @@
         ],
 
         "en-EN": [
+          { "gender.male": "Male" },
+          { "gender.female": "Female" },
+          { "gender.no": "Prefer not to answer" },
+          { "animation.turbulence": "Turbulence Indicator" },
+          { "animation.forecasts": "Flight Forecasts" },
+          { "animation.tracking": "Flight Tracking" },
+          { "animation.no_fear": "Flying without Fear" },
+          { "animation.podcasts": "Explanatory Podcasts" },
+          { "animation.what_gender": "What is your gender?" },
           {
             "qustion.what_purpose": "What is your main goal?",
           },
@@ -286,7 +304,7 @@
             "answer.panic.attack": "Possibility of panic attack",
           },
           {
-            "answer.enclosed space": "Closed space",
+            "answer.enclosed_space": "Closed space",
           },
           {
             "answer.every.moment": "Notice every moment of the aircraft",
@@ -402,21 +420,9 @@
   </head>
   <body>
     <div class="wrapper">
-
-
       <div id="initial-card">
-        <div class="initial-card-content">
-          <div class="init-page-title-wrapper">
-            <div class="init-page-logo"></div>
-            <h2 id="app-title" class="init-page-app-title"></h2>
-          </div>
-          <div class="init-image-wrapper">
-            <div class="init-image">
-              <h3 id="init-image-text"></h3>
-            </div>
-          </div>
-          <button id="init-btn"></button>
-        </div>
+        <img class="init-image" src="./assets/init.png" alt="" />
+        <button id="init-btn"></button>
       </div>
 
       <div class="container hidden" id="container">

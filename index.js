@@ -1,12 +1,15 @@
-let DATA = null;
 const title = "title";
 const card = "card";
 const description = "description";
 const animationElement = "lottie";
+const SERVER_URL = "https://vote-api.dennis.systems/";
+let DATA = null;
 
 function init() {
   getQuestions();
 }
+
+const STATE = [];
 
 class CardController {
   card = h.fromId(card);
@@ -15,17 +18,31 @@ class CardController {
   data = null;
   cardClass = null;
   index = 0;
+  respondentAswerId = null;
 
   start() {
     this.data = DATA;
-    console.log(DATA);
     this.drawCard(this.index);
   }
 
   drawCard(index) {
     const item = this.data[index];
-    this.title.text(removeSubStr(item.name));
     this.drawClass = new CardFactory(item, this);
+  }
+
+  createPayload() {
+    return {
+      answers: this.drawClass.data.answers,
+      questionnaireTemplate: this.drawClass.data.questionnaireTemplate.key,
+      question: this.drawClass.data.id,
+    };
+  }
+
+  postAnswer() {
+    const payload = this.createPayload();
+    const path = SERVER_URL + "api/v2/questionnaire/respondent_answer/vote";
+    STATE.push(payload);
+    this.changeCard();
   }
 
   clearCard() {
@@ -34,7 +51,7 @@ class CardController {
     this.description.text(null);
   }
 
-  submitCurrentCard() {
+  changeCard() {
     this.clearCard();
     if (this.index + 1 == this.data.length) {
       this.end();
@@ -43,22 +60,29 @@ class CardController {
     this.drawCard(++this.index);
   }
 
+  submitCurrentCard() {
+    if (!this.respondentAswerId) {
+      this.postAnswer(this.getRespondent);
+    }
+  }
+
   end() {
     this.title.text("global.success");
+    console.log(STATE);
   }
 }
 
 class CardFactory {
   constructor(data, parent) {
-    if (data.type == "single_choice") {
-      return new ChoiseAnswer(data, parent);
-    }
-
     if (data.type == "multiple_choice") {
       return new ChoiseAnswer(data, parent);
     }
 
-    if (data.type == "animation") {
+    if (data.type == "single_choice") {
+      return new ChoiseAnswer(data, parent);
+    }
+
+    if (data.type == "open") {
       return new AnimationCard(data, parent);
     }
   }
@@ -72,11 +96,7 @@ class Answer {
   value;
   container = h.fromId(card);
   parent;
-  submitBtn = h
-    .tag("button")
-    .cl("submit submit-btn")
-    .text(CONTINUE_BTN)
-    .setA("disabled", true);
+  submitBtn = h.tag("button").cl("submit submit-btn").text(CONTINUE_BTN);
 
   constructor(data, parent) {
     this.type = data.type;
@@ -92,6 +112,10 @@ class Answer {
 
   getValue() {
     return this.data;
+  }
+
+  setTitle() {
+    this.parent.title.text(stripHtml(this.data.name));
   }
 
   transformDate() {
@@ -125,12 +149,14 @@ class AnimationCard extends Answer {
     autoplay: "true",
     id: "lottie",
   };
+  path;
   animationElement = h
     .tag("dotlottie-player")
     .cl(AnimationCard.lottieClassName);
 
   constructor(data, parent) {
     super(data, parent);
+    this.setTitle();
     this.createAnimationElement();
     this.submit();
   }
@@ -141,7 +167,13 @@ class AnimationCard extends Answer {
       this.animationElement.setA(key, value);
     });
     this.animationElement.style().width(500).height(600);
-    this.animationElement.setA("src", this.data.additional);
+    this.animationElement.setA("src", this.path);
+  }
+
+  setTitle() {
+    this.path = stripHtml(this.data.name.match(/https?:\/\/[^\s]+/)[0]);
+    const title = stripHtml(this.data.name.replace(this.path, ""));
+    this.parent.title.text(title);
   }
 }
 
@@ -159,6 +191,8 @@ class ChoiseAnswer extends Answer {
     this.answers = data.answers;
 
     this.init(data);
+    this.data.answers = [];
+    this.setTitle();
   }
 
   init(data) {
@@ -166,11 +200,6 @@ class ChoiseAnswer extends Answer {
       this.isMultiSelect = true;
     }
     this.build();
-
-    if (this.isMultiSelect) {
-      this.submitBtn.get().removeAttribute("disabled");
-      return;
-    }
   }
 
   build() {
@@ -226,21 +255,8 @@ class ChoiseAnswer extends Answer {
     }
     h.from(element).toggle(ChoiseAnswer.selectClass);
     this.setValue();
-    this.changeBtn();
     this.changeBtnText();
   };
-
-  changeBtn() {
-    if (this.isMultiSelect) {
-      return;
-    }
-
-    if (this.data.answers.length) {
-      this.submitBtn.get().removeAttribute("disabled");
-    } else {
-      this.submitBtn.setA("disabled", true);
-    }
-  }
 
   changeBtnText() {
     if (!this.isMultiSelect) {
@@ -315,19 +331,22 @@ function verifyResponse() {
 }
 
 function getQuestions() {
-  h.fromId("init-btn").text("button.continue").click(() => {
-    h.fromId("initial-card").hide()
-    h.fromId("container").show();
-  })
+  h.fromId("init-btn")
+    .text("button.continue")
+    .click(() => {
+      h.fromId("initial-card").hide();
+      h.fromId("container").show();
+    });
   const PATH =
     "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
   Executor.runGet(PATH, (data) => {
     DATA = data.content;
-
     new CardController().start();
   });
 }
 
-function removeSubStr(str) {
-  return str.replace("<p>", "").replace("</p>", "").replace("<br>", "");
+function stripHtml(html) {
+  let tmp = document.createElement("DIV");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
 }
