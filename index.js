@@ -9,24 +9,75 @@ function init() {
   getQuestions();
 }
 
-const STATE = [];
+let ANSWERS_STATE = [];
+
+class StorageAnswers {
+  static ANSWERS_KEY = "onboard__answers__";
+  static INDEX_KEY = "onboard__answer__index__";
+  static ID_KEY = "onboard__answers__id__";
+
+  static getAnswers() {
+    return localStorage.getItem(StorageAnswers.ANSWERS_KEY);
+  }
+
+  static setId() {
+    localStorage.setItem(StorageAnswers.ID_KEY, CardController.ID);
+  }
+
+  static getId() {
+    return localStorage.getItem(StorageAnswers.ID_KEY);
+  }
+
+  static setIndex() {
+    localStorage.setItem(StorageAnswers.INDEX_KEY, CardController.INDEX);
+  }
+
+  static getIndex() {
+    return localStorage.getItem(StorageAnswers.INDEX_KEY);
+  }
+
+  static put() {
+    localStorage.setItem(
+      StorageAnswers.ANSWERS_KEY,
+      JSON.stringify(ANSWERS_STATE)
+    );
+  }
+
+  static clear() {
+    localStorage.removeItem(StorageAnswers.ANSWERS_KEY);
+    localStorage.removeItem(StorageAnswers.INDEX_KEY);
+    localStorage.removeItem(StorageAnswers.ID_KEY);
+  }
+}
 
 class CardController {
+  static INDEX = StorageAnswers.getIndex();
+  static ID = StorageAnswers.getId();
+  static PRESET_ANSWERS = StorageAnswers.getAnswers();
   card = h.fromId(card);
   title = h.fromId(title);
   description = h.fromId(description);
   data = null;
   cardClass = null;
-  index = 0;
-  respondentAswerId = null;
 
   start() {
     this.data = DATA;
-    this.drawCard(this.index);
+    this.presetValues();
+    this.drawCard();
   }
 
-  drawCard(index) {
-    const item = this.data[index];
+  presetValues() {
+    const { INDEX, ID, PRESET_ANSWERS } = CardController;
+    if (INDEX && ID && PRESET_ANSWERS) {
+      ANSWERS_STATE = JSON.parse(PRESET_ANSWERS);
+      CardController.INDEX = Number(StorageAnswers.getIndex());
+      return;
+    }
+    CardController.INDEX = 0;
+  }
+
+  drawCard() {
+    const item = this.data[CardController.INDEX];
     this.drawClass = new CardFactory(item, this);
   }
 
@@ -40,9 +91,12 @@ class CardController {
 
   postAnswer() {
     const payload = this.createPayload();
-    const path = SERVER_URL + "api/v2/questionnaire/respondent_answer/vote";
-    STATE.push(payload);
-    this.changeCard();
+    ANSWERS_STATE.push(payload);
+    if (!CardController.ID) {
+      this.postFirstAnswer();
+      return;
+    }
+    this.postNewAnswer();
   }
 
   clearCard() {
@@ -53,11 +107,7 @@ class CardController {
 
   changeCard() {
     this.clearCard();
-    if (this.index + 1 == this.data.length) {
-      this.end();
-      return;
-    }
-    this.drawCard(++this.index);
+    this.drawCard(++CardController.INDEX);
   }
 
   submitCurrentCard() {
@@ -67,8 +117,44 @@ class CardController {
   }
 
   end() {
+    this.clearCard();
     this.title.text("global.success");
-    console.log(STATE);
+    StorageAnswers.clear();
+  }
+
+  postFirstAnswer() {
+    const path =
+      "https://vote-api.dennis.systems/api/v2/questionnaire/respondent_answer/vote";
+    Executor.runPostWithPayload(
+      path,
+      (response) => {
+        CardController.ID = response.r2q;
+        this.successUpdate();
+      },
+      ANSWERS_STATE
+    );
+  }
+
+  successUpdate() {
+    if (CardController.INDEX + 1 == this.data.length) {
+      this.end();
+      return;
+    }
+    this.changeCard();
+    StorageAnswers.put();
+    StorageAnswers.setId();
+    StorageAnswers.setIndex();
+  }
+
+  postNewAnswer() {
+    Executor.runPostWithPayload(
+      "https://vote-api.dennis.systems/api/v2/questionnaire/respondent_answer/change/" +
+        CardController.ID,
+      () => {
+        this.successUpdate();
+      },
+      ANSWERS_STATE
+    );
   }
 }
 
@@ -315,7 +401,7 @@ class CheckboxAnswer extends Answer {
   constructor(data, index) {
     super(data, index);
 
-    this.id = "answer-checkbox" + this.index;
+    this.id = "answer-checkbox" + CardController.INDEX;
     this.build();
   }
 
@@ -347,7 +433,7 @@ function getQuestions() {
     "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
   Executor.runGet(PATH, (data) => {
     DATA = data.content;
-    MagicPage.translatePage()
+    MagicPage.translatePage();
     new CardController().start();
   });
 }
@@ -369,6 +455,17 @@ function stripHtml(html) {
 //   required: false,
 // };
 
+// Executor.runPutWithPayload("https://vote-api.dennis.systems/api/v2/questionnaire/question/edit", () => {}, payloadR)
 
+// const payloadR = {
+//     "additionalValues": [],
+//     "id": 9552,
+//     "name": "Onboarding",
+//     "description": "<p>НЕ ТРОГАТЬ</p>",
+//     "initialVotes": "13123330",
+//     "till": "05.12.2030",
+//     "isPublic": true,
+//     "allowMultiVote": true
+// }
 
-// Executor.runPutWithPayload("https://vote-api.dennis.systems/api/v2/questionnaire/question/edit", () => {}, payloadR) 
+// Executor.runPutWithPayload("https://vote-api.dennis.systems/api/v2/questionnaire/questionnaire_template/edit", () => {}, payloadR)
