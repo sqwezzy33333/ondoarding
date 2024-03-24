@@ -7,6 +7,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -64,13 +65,34 @@ header .login-label-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-self: center;
 }
 
 .content-title {
-  text-align: center;
-  margin: 0;
-  padding: 5px;
+  margin-top: 4px;
+  color: var(--333333, #030303);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.41px;
+}
+
+.description {
+  margin-top: 8px;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--333333, #030303);
+}
+
+.description:empty {
+  display: none;
+}
+
+.answer__single_choice, .answer__multiple_choice {
+  margin-top: 20px;
+  flex-grow: 1;
+  height: 100%;
+  overflow: scroll;
 }
 
 .answer__animation .submit-btn {
@@ -81,7 +103,20 @@ header .login-label-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  height: 100vh;
+  padding: 0 20px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.content:has(.submit-btn) {
+  height: 100%;
+  padding-bottom: 135px;
 }
 
 .wrapper::after {
@@ -114,16 +149,27 @@ header .login-label-text {
 .answer__coise {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-grow: 1;
+  width: 100%;
+  overflow: scroll;
 }
 
 .answer__choise-item {
-  display: inline-flex;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #811811;
-  user-select: none;
-  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px;
+  width: 100%;
+  height: 96px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), #D7F2FF;
+  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
+  color: #1A1A1A;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  flex-shrink: 0;
 }
 
 .answer__container.answer__checkbox {
@@ -132,8 +178,7 @@ header .login-label-text {
 }
 
 .__selected-choise {
-  background-color: #811811;
-  color: white;
+  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), #78D2FF;
 }
 
 input[type="checkbox"] {
@@ -197,14 +242,22 @@ input[type="checkbox"] + label:hover::before {
 }
 
 .submit-btn {
-  margin-top: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  border: blue 1px solid;
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 40px);
+  margin: 10px 20px 75px;
   cursor: pointer;
-  width: fit-content;
-  position: relative;
-  z-index: 10;
+  height: 50px;
+  border-radius: 42px;
+  color: #FFF;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 28px; 
+  letter-spacing: 0.035px;
+  border: 1px solid rgba(255, 255, 255, 0.53);
+  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(139deg, #68D5FD 5.7%, #0C4DE3 94%);
+  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
 }
 
 footer {
@@ -268,8 +321,7 @@ footer .footer-logo {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-  gap: 420px;
+  justify-content: space-between;
 }
 
 .init-page-title-wrapper {
@@ -349,4 +401,27 @@ footer .footer-logo {
   border: 1px solid rgba(255, 255, 255, 0.53);
   background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(139deg, #68D5FD 5.7%, #0C4DE3 94%);
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
+}
+
+.plane-progress-line {
+  height: 60px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.animation__podcast, .animation__no_fear, .animation__forecasts, .animation__tracking {
+  flex-grow: 1;
+}
+
+dotlottie-player[class="t=lottie-element"] {
+  width: 100% !important;
+  height: 100% !important;
+  flex-grow: 1;
+}
+
+svg {
+  width: 375px !important;
+  height: 475px !important;
+  max-width: 100%;
+  max-height: 100%;
 }
