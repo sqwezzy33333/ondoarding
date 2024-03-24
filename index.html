@@ -425,10 +425,18 @@
   <body>
     <div class="wrapper">
       <div id="initial-card">
-        <div data-text="global.name"></div>
-        <img class="init-image" src="./assets/init.png" alt="" />
-        <div data-text="global.initial"></div>
-        <button id="init-btn"></button>
+        <div class="initial-card-content">
+          <div class="init-page-title-wrapper">
+            <div class="init-page-logo"></div>
+            <h2 data-text="global.name" class="init-page-app-title"></h2>
+          </div>
+          <div class="init-image-wrapper">
+            <div class="init-image">
+              <h3 data-text="global.initial" class="init-image-text"></h3>
+            </div>
+          </div>
+          <button id="init-btn"></button>
+        </div>
       </div>
 
       <div class="container hidden" id="container">

@@ -268,8 +268,8 @@ footer .footer-logo {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center;
+  gap: 420px;
 }
 
 .init-page-title-wrapper {
@@ -323,7 +323,7 @@ footer .footer-logo {
   padding-top: 50px;
 }
 
-#init-image-text {
+.init-image-text {
   max-width: 200px;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
@@ -337,7 +337,7 @@ footer .footer-logo {
   width: calc(100% - 40px);
   cursor: pointer;
   margin: 0 20px;
-  margin-bottom: 24px;
+  margin-bottom: 75px;
   height: 50px;
   border-radius: 42px;
   color: #FFF;
