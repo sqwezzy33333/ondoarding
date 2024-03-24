@@ -275,7 +275,7 @@ footer .footer-logo {
 .init-page-title-wrapper {
   display: flex;
   align-items: center;
-  margin-top: 35px;
+  margin-top: 85px;
   gap: 10px;
 }
 
@@ -337,7 +337,7 @@ footer .footer-logo {
   width: calc(100% - 40px);
   cursor: pointer;
   margin: 0 20px;
-  margin-bottom: 24px;
+  margin-bottom: 75px;
   height: 50px;
   border-radius: 42px;
   color: #FFF;
