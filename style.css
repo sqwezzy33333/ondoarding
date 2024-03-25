@@ -325,6 +325,8 @@ footer .footer-logo {
 }
 
 .init-page-title-wrapper {
+  position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
   margin-top: 85px;
@@ -386,6 +388,8 @@ footer .footer-logo {
 }
 
 #init-btn{
+  position: fixed;
+  bottom: 0;
   width: calc(100% - 40px);
   cursor: pointer;
   margin: 0 20px;
@@ -403,25 +407,97 @@ footer .footer-logo {
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
 }
 
+.animation__podcast, .animation__no_fear, .animation__forecasts, .animation__tracking, .animation__turbulence {
+  flex-grow: 1;
+  max-height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+dotlottie-player[class="t=lottie-element"] {
+  width: calc(100vw - 6px) !important;
+  height: fit-content !important;
+  flex-grow: 1;
+  position: absolute;
+  top: -70px;
+}
+
+.animation__podcast dotlottie-player[class="t=lottie-element"] {
+  top: -60px;
+}
+
+.animation__no_fear dotlottie-player[class="t=lottie-element"] {
+  top: -50px;
+}
+
 .plane-progress-line {
   height: 60px;
   width: 100%;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.animation__podcast, .animation__no_fear, .animation__forecasts, .animation__tracking {
+.back-btn {
+  display: block;
+  width: 11px;
+  height: 20px;
+  background-image: url("./assets/back-btn.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 11px 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.plane-progress-line-wrapper {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-dotlottie-player[class="t=lottie-element"] {
-  width: 100% !important;
-  height: 100% !important;
+.progress-line-node {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(120, 210, 255, 0.3);
+}
+
+.big-node {
+  width: 10px;
+  height: 10px;
+}
+
+.visited-node {
+  background-color: rgba(120, 210, 255, 1);
+}
+
+.progress-line-connection {
+  height: 2px;
   flex-grow: 1;
+  background-color: transparent;
+  border-radius: 1px;
 }
 
-svg {
-  width: 375px !important;
-  height: 475px !important;
-  max-width: 100%;
-  max-height: 100%;
+.show-connection {
+  background-color: rgba(120, 210, 255, 1);
+}
+
+.plane-node {
+  position: relative;
+}
+
+.plane-node::after {
+  content: "";
+    position: absolute;
+    width: 30px;
+    height: 28px;
+    background-image: url("./assets/plane.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 27px 28px;
+    transform: translate(-9px, -11px);
+    background-color: white;
 }
