@@ -16,6 +16,12 @@
   src: url("./src/fonts/Roboto/Roboto-Bold.ttf");
 }
 
+@font-face {
+  font-weight: 400;
+  font-family: SFProText;
+  src: url("./src/fonts/SFProText/SFProText-Regular.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -170,18 +176,33 @@ header .login-label-text {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 16px;
+  padding: 27px 16px;
   width: 100%;
   height: 96px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), #D7F2FF;
+  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), 
+  radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), #D7F2FF;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
   color: #1A1A1A;
   font-size: 17px;
   font-weight: 600;
   line-height: 22px;
   flex-shrink: 0;
+}
+
+.answer__multiple_choice .answer__choise-item::after {
+  content: "";
+  width: 56px;
+  height: 26px;
+  padding-left: 30px;
+  margin-left: auto;
+  background-image: url("./assets/checkbox-unchecked.svg");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-color: transparent;
+
 }
 
 .answer__container.answer__checkbox {
@@ -268,8 +289,10 @@ input[type="checkbox"] + label:hover::before {
   font-weight: 400;
   line-height: 28px; 
   letter-spacing: 0.035px;
-  border: 1px solid rgba(255, 255, 255, 0.53);
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(139deg, #68D5FD 5.7%, #0C4DE3 94%);
+  border: none;
+  background-image: url("./images/button-bg.png");
+  background-size: cover;
+  background-position: center;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
 }
 
@@ -334,16 +357,18 @@ footer .footer-logo {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .init-page-title-wrapper {
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   display: flex;
   align-items: center;
-  margin-top: 85px;
+  /* margin-top: 85px; */
   gap: 10px;
+  margin-bottom: 415px;
+  margin-top: 39px;
 }
 
 .init-page-logo {
@@ -387,12 +412,12 @@ footer .footer-logo {
   background-size: contain;
   display: flex;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 38px;
 }
 
 .init-image-text {
   max-width: 200px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 1);
   text-align: center;
   font-size: 36px;
   font-weight: 700;
@@ -402,12 +427,12 @@ footer .footer-logo {
 
 #init-btn{
   font-family: "Roboto", sans-serif;
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
   width: calc(100% - 40px);
   cursor: pointer;
   margin: 0 20px;
-  margin-bottom: 75px;
+  /* margin-bottom: 75px; */
   height: 50px;
   border-radius: 42px;
   color: #FFF;
@@ -416,8 +441,10 @@ footer .footer-logo {
   font-weight: 400;
   line-height: 28px; 
   letter-spacing: 0.035px;
-  border: 1px solid rgba(255, 255, 255, 0.53);
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), linear-gradient(139deg, #68D5FD 5.7%, #0C4DE3 94%);
+  border: none;
+  background-image: url("./images/button-bg.png");
+  background-size: cover;
+  background-position: center;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
 }
 
@@ -432,15 +459,15 @@ dotlottie-player[class="t=lottie-element"] {
   width: calc(100vw - 6px) !important;
   flex-grow: 1;
   position: absolute;
-  top: -70px;
+  /* top: -70px; */
 }
 
 .animation__podcast dotlottie-player[class="t=lottie-element"] {
-  top: -60px;
+  /* top: -60px; */
 }
 
 .animation__no_fear dotlottie-player[class="t=lottie-element"] {
-  top: -50px;
+  /* top: -50px; */
 }
 
 .plane-progress-line {
@@ -513,4 +540,25 @@ dotlottie-player[class="t=lottie-element"] {
     background-size: 27px 28px;
     transform: translate(-9px, -11px);
     background-color: white;
+}
+
+.agreement-text-wrapper {
+  margin: 0 20px 20px;
+  text-align: center;
+}
+
+.agreement-text {
+  font-family: "SFProText", sans-serif;
+  color: rgba(133, 144, 157, 0.80);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.agreement-link {
+  text-decoration: none;
+  font-family: "SFProText", sans-serif;
+  color: rgba(133, 144, 157, 0.80);
+  font-size: 11px;
+  font-weight: 400;
+  text-decoration-line: underline;
 }
