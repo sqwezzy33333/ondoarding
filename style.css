@@ -416,7 +416,6 @@ footer .footer-logo {
 
 dotlottie-player[class="t=lottie-element"] {
   width: calc(100vw - 6px) !important;
-  height: fit-content !important;
   flex-grow: 1;
   position: absolute;
   top: -70px;
