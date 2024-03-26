@@ -1,7 +1,19 @@
 @font-face {
   font-weight: 400;
-  font-family: Forum;
-  src: url("./src/fonts/Forum/Forum-Regular.ttf");
+  font-family: Roboto;
+  src: url("./src/fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-weight: 500;
+  font-family: Roboto;
+  src: url("./src/fonts/Roboto/Roboto-Medium.ttf");
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: Roboto;
+  src: url("./src/fonts/Roboto/Roboto-Bold.ttf");
 }
 
 * {
@@ -11,7 +23,7 @@
 }
 
 body {
-  font-family: "Forum", Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   line-height: normal;
   font-size: 20px;
@@ -242,6 +254,7 @@ input[type="checkbox"] + label:hover::before {
 }
 
 .submit-btn {
+  font-family: "Roboto", sans-serif;
   position: fixed;
   bottom: 0;
   width: calc(100% - 40px);
@@ -252,7 +265,7 @@ input[type="checkbox"] + label:hover::before {
   color: #FFF;
   text-align: center;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 28px; 
   letter-spacing: 0.035px;
   border: 1px solid rgba(255, 255, 255, 0.53);
@@ -381,13 +394,14 @@ footer .footer-logo {
   max-width: 200px;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 36px;
   text-transform: uppercase;
 }
 
 #init-btn{
+  font-family: "Roboto", sans-serif;
   position: fixed;
   bottom: 0;
   width: calc(100% - 40px);
@@ -399,7 +413,7 @@ footer .footer-logo {
   color: #FFF;
   text-align: center;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 28px; 
   letter-spacing: 0.035px;
   border: 1px solid rgba(255, 255, 255, 0.53);
