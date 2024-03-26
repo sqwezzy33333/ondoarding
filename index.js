@@ -61,9 +61,21 @@ class CardController {
   cardClass = null;
 
   start() {
-    this.data = DATA;
+    this.data = [...DATA];
     this.presetValues();
     this.drawCard();
+    this.backListener();
+  }
+
+  backListener() {
+    h.fromId("back-btn").click(() => {
+      if (CardController.INDEX - 1 < 0) {
+        return;
+      }
+      CardController.INDEX--;
+      this.clearCard();
+      this.drawCard();
+    });
   }
 
   presetValues() {
@@ -91,7 +103,14 @@ class CardController {
 
   postAnswer() {
     const payload = this.createPayload();
-    ANSWERS_STATE.push(payload);
+    const index = ANSWERS_STATE.findIndex(
+      (element) => element.question == payload.question
+    );
+    if (index !== -1) {
+      ANSWERS_STATE[index] = payload;
+    } else {
+      ANSWERS_STATE.push(payload);
+    }
     if (!CardController.ID) {
       this.postFirstAnswer();
       return;
@@ -111,9 +130,7 @@ class CardController {
   }
 
   submitCurrentCard() {
-    if (!this.respondentAswerId) {
-      this.postAnswer(this.getRespondent);
-    }
+    this.postAnswer(this.getRespondent);
   }
 
   end() {
@@ -160,16 +177,17 @@ class CardController {
 
 class CardFactory {
   constructor(data, parent) {
+    const item = structuredClone(data);
     if (data.type == "multiple_choice") {
-      return new ChoiseAnswer(data, parent);
+      return new ChoiseAnswer(item, parent);
     }
 
     if (data.type == "single_choice") {
-      return new ChoiseAnswer(data, parent);
+      return new ChoiseAnswer(item, parent);
     }
 
     if (data.type == "open") {
-      return new AnimationCard(data, parent);
+      return new AnimationCard(item, parent);
     }
   }
 }
@@ -279,7 +297,6 @@ class ChoiseAnswer extends Answer {
 
   constructor(data, parent) {
     super(data, parent);
-
     this.answers = data.answers;
 
     this.init(data);
@@ -290,6 +307,8 @@ class ChoiseAnswer extends Answer {
   init(data) {
     if (!_e(data.type, "single_choice")) {
       this.isMultiSelect = true;
+    } else {
+      this.submitBtn.setA("disabled", true);
     }
     this.build();
   }
@@ -348,7 +367,19 @@ class ChoiseAnswer extends Answer {
     h.from(element).toggle(ChoiseAnswer.selectClass);
     this.setValue();
     this.changeBtnText();
+    this.changeDisabledBtn();
   };
+
+  changeDisabledBtn() {
+    if (this.isMultiSelect) {
+      return;
+    }
+    if (this.data.answers.length) {
+      this.submitBtn.setA("disabled", null);
+    } else {
+      this.submitBtn.setA("disabled", true);
+    }
+  }
 
   changeBtnText() {
     if (!this.isMultiSelect) {
@@ -423,12 +454,15 @@ function verifyResponse() {
 }
 
 function getQuestions() {
-  h.fromId("init-btn")
-    .text("button.continue")
-    .click(() => {
-      h.fromId("initial-card").hide();
-      h.fromId("container").show();
-    });
+  waitForElm("init-btn").then((elem) => {
+    h.from(elem)
+      .text("button.continue")
+      .click(() => {
+        h.fromId("initial-card").hide();
+        h.fromId("container").show();
+      });
+  });
+
   const PATH =
     "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
   Executor.runGet(PATH, (data) => {
@@ -444,28 +478,22 @@ function stripHtml(html) {
   return tmp.textContent || tmp.innerText || "";
 }
 
-// const payloadR = {
-//   id: 113,
-//   name: "animation.forecasts",
-//   type: "open",
-//   position: "5",
-//   answers: null,
-//   questionnaireTemplate: 9552,
-//   additional: "https://files.dennis.systems/api/v2/files/public/download/AA_D1c50a.20043",
-//   required: false,
-// };
+function waitForElm(selector) {
+  return new Promise((resolve) => {
+    if (document.getElementById(selector)) {
+      return resolve(document.getElementById(selector));
+    }
 
-// Executor.runPutWithPayload("https://vote-api.dennis.systems/api/v2/questionnaire/question/edit", () => {}, payloadR)
+    const observer = new MutationObserver((mutations) => {
+      if (document.getElementById(selector)) {
+        observer.disconnect();
+        resolve(document.getElementById(selector));
+      }
+    });
 
-// const payloadR = {
-//     "additionalValues": [],
-//     "id": 9552,
-//     "name": "Onboarding",
-//     "description": "<p>НЕ ТРОГАТЬ</p>",
-//     "initialVotes": "13123330",
-//     "till": "05.12.2030",
-//     "isPublic": true,
-//     "allowMultiVote": true
-// }
-
-// Executor.runPutWithPayload("https://vote-api.dennis.systems/api/v2/questionnaire/questionnaire_template/edit", () => {}, payloadR)
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
+}
