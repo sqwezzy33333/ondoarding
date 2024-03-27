@@ -94,7 +94,7 @@ header .login-label-text {
   letter-spacing: 0.41px;
 }
 
-.description {
+.sub-title {
   margin-top: 8px;
   font-size: 17px;
   font-weight: 400;
@@ -102,11 +102,8 @@ header .login-label-text {
   color: var(--333333, #030303);
 }
 
-.description:empty {
-  display: none;
-}
-
-.answer__single_choice, .answer__multiple_choice {
+.answer__single_choice,
+.answer__multiple_choice {
   margin-top: 20px;
   flex-grow: 1;
   height: 100%;
@@ -134,7 +131,6 @@ header .login-label-text {
 
 .content:has(.submit-btn) {
   height: 100%;
-  padding-bottom: 135px;
 }
 
 .wrapper::after {
@@ -181,10 +177,19 @@ header .login-label-text {
   height: 96px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), 
-  radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), #D7F2FF;
-  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
-  color: #1A1A1A;
+  background: radial-gradient(
+      70.12% 70.12% at 37.92% -17.08%,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      62.64% 62.64% at 87.5% 95.83%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #d7f2ff;
+  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
+  color: #1a1a1a;
   font-size: 17px;
   font-weight: 600;
   line-height: 22px;
@@ -202,7 +207,6 @@ header .login-label-text {
   background-repeat: no-repeat;
   background-size: 26px 26px;
   background-color: transparent;
-
 }
 
 .answer__container.answer__checkbox {
@@ -211,7 +215,17 @@ header .login-label-text {
 }
 
 .__selected-choise {
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%), #78D2FF;
+  background: radial-gradient(
+      70.12% 70.12% at 37.92% -17.08%,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      62.64% 62.64% at 87.5% 95.83%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #78d2ff;
 }
 
 input[type="checkbox"] {
@@ -276,24 +290,22 @@ input[type="checkbox"] + label:hover::before {
 
 .submit-btn {
   font-family: "Roboto", sans-serif;
-  position: fixed;
-  bottom: 0;
-  width: calc(100% - 40px);
-  margin: 10px 20px 75px;
+  margin: 10px 20px 20px;
+  width: 100%;
   cursor: pointer;
   height: 50px;
   border-radius: 42px;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 22px;
   font-weight: 400;
-  line-height: 28px; 
+  line-height: 28px;
   letter-spacing: 0.035px;
   border: none;
   background-image: url("./images/button-bg.png");
   background-size: cover;
   background-position: center;
-  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
+  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
 }
 
 footer {
@@ -331,15 +343,15 @@ footer .footer-logo {
 
 #initial-card {
   height: 100vh;
-  background: #D7F2FF;
+  background: #d7f2ff;
   position: relative;
 }
 
 #initial-card::after {
   content: "";
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.70);
-  border: 1px solid #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid #ffffff;
   border-radius: 0 0 30px 30px;
   top: 0;
   width: 100%;
@@ -350,25 +362,23 @@ footer .footer-logo {
 .initial-card-content {
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   z-index: 2;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .init-page-title-wrapper {
-  /* position: fixed;
-  top: 0; */
   display: flex;
   align-items: center;
-  /* margin-top: 85px; */
   gap: 10px;
-  margin-bottom: 415px;
-  margin-top: 39px;
+  margin-bottom: auto;
+  margin-top: 80px;
 }
 
 .init-page-logo {
@@ -398,12 +408,12 @@ footer .footer-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #ffffff;
   border-radius: 142px;
-  background-image: radial-gradient(#D9F3FF 86%, #F2FDFF 98%, #D7F2FF 100%);
+  background-image: radial-gradient(#d9f3ff 86%, #f2fdff 98%, #d7f2ff 100%);
 }
 
-.init-image{
+.init-image {
   width: 210px;
   height: 274px;
   background-image: url("./assets/init.png");
@@ -425,30 +435,31 @@ footer .footer-logo {
   text-transform: uppercase;
 }
 
-#init-btn{
+#init-btn {
   font-family: "Roboto", sans-serif;
-  /* position: fixed;
-  bottom: 0; */
   width: calc(100% - 40px);
   cursor: pointer;
-  margin: 0 20px;
-  /* margin-bottom: 75px; */
+  margin: 10px 20px 20px;
   height: 50px;
   border-radius: 42px;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 22px;
   font-weight: 400;
-  line-height: 28px; 
+  line-height: 28px;
   letter-spacing: 0.035px;
   border: none;
   background-image: url("./images/button-bg.png");
   background-size: cover;
   background-position: center;
-  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.20) inset;
+  box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
 }
 
-.animation__podcast, .animation__no_fear, .animation__forecasts, .animation__tracking, .animation__turbulence {
+.animation__podcast,
+.animation__no_fear,
+.animation__forecasts,
+.animation__tracking,
+.animation__turbulence {
   flex-grow: 1;
   max-height: 100%;
   position: relative;
@@ -531,25 +542,25 @@ dotlottie-player[class="t=lottie-element"] {
 
 .plane-node::after {
   content: "";
-    position: absolute;
-    width: 30px;
-    height: 28px;
-    background-image: url("./assets/plane.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 27px 28px;
-    transform: translate(-9px, -11px);
-    background-color: white;
+  position: absolute;
+  width: 30px;
+  height: 28px;
+  background-image: url("./assets/plane.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 27px 28px;
+  transform: translate(-9px, -11px);
+  background-color: white;
 }
 
 .agreement-text-wrapper {
-  margin: 0 20px 20px;
+  margin: 0 20px 10px;
   text-align: center;
 }
 
 .agreement-text {
   font-family: "SFProText", sans-serif;
-  color: rgba(133, 144, 157, 0.80);
+  color: rgba(133, 144, 157, 0.8);
   font-size: 11px;
   font-weight: 400;
 }
@@ -557,8 +568,12 @@ dotlottie-player[class="t=lottie-element"] {
 .agreement-link {
   text-decoration: none;
   font-family: "SFProText", sans-serif;
-  color: rgba(133, 144, 157, 0.80);
+  color: rgba(133, 144, 157, 0.8);
   font-size: 11px;
   font-weight: 400;
   text-decoration-line: underline;
+}
+
+.answer__single_choice .answer__coise {
+  margin-bottom: 20px;
 }
