@@ -203,8 +203,8 @@
             "button.continue": "Продолжить",
           },
           { "global.success": "Успешно" },
-          {'global.initial': "Боитесь летать?"},
-          {'global.name': 'Flight Buddy'}
+          { "global.initial": "Боитесь летать?" },
+          { "global.name": "Flight Buddy" },
         ],
 
         "en-EN": [
@@ -212,10 +212,24 @@
           { "gender.female": "Female" },
           { "gender.no": "Prefer not to answer" },
           { "animation.turbulence": "Turbulence Indicator" },
+          {
+            "animation.turbulence_title":
+              "Track and decode every movement of the aircraft",
+          },
           { "animation.forecasts": "Flight Forecasts" },
+          { "animation.forecasts_title": "Keep everything under control" },
           { "animation.tracking": "Flight Tracking" },
+          {
+            "animation.tracking_title":
+              "Check in your flight and get the latest updates",
+          },
           { "animation.no_fear": "Flying without Fear" },
+          {
+            "animation.no_fear_title":
+              "Watch and learn how to deal with your fears effectively",
+          },
           { "animation.podcast": "Explanatory Podcasts" },
+          { "animation.podcast_title": "Learn everything about air travel" },
           { "animation.what_gender": "What is your gender?" },
           {
             "qustion.what_purpose": "What is your main goal?",
@@ -401,9 +415,12 @@
             "button.continue": "Continue",
           },
           { "global.success": "Success" },
-          {'global.initial': "FEAR OF FLYING?"},
-          {'global.name': 'Flight Buddy'},
-          {'global.agreement': '<p class="agreement-text">By pressing Continue I hereby agree to processing of my personal data. <a class="agreement-link" href="#">Privacy Policy</a> and <a class="agreement-link" href="#">Terms and Conditions</a> apply.</p>'},
+          { "global.initial": "FEAR OF FLYING?" },
+          { "global.name": "Flight Buddy" },
+          {
+            "global.agreement":
+              '<p class="agreement-text">By pressing Continue I hereby agree to processing of my personal data. <a class="agreement-link" href="#">Privacy Policy</a> and <a class="agreement-link" href="#">Terms and Conditions</a> apply.</p>',
+          },
         ],
       };
     </script>
@@ -436,7 +453,10 @@
               <h3 data-text="global.initial" class="init-image-text"></h3>
             </div>
           </div>
-          <div data-text="global.agreement" class="agreement-text-wrapper"></div>
+          <div
+            data-text="global.agreement"
+            class="agreement-text-wrapper"
+          ></div>
           <button id="init-btn"></button>
         </div>
       </div>
@@ -467,6 +487,7 @@
             </div>
           </div>
           <h2 id="title" class="content-title"></h2>
+          <h2 id="sub-title" class="sub-title hidden"></h2>
           <p class="description" id="description"></p>
           <div class="card" id="card"></div>
         </div>

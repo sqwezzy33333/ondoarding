@@ -65,6 +65,15 @@ class CardController {
     this.presetValues();
     this.drawCard();
     this.backListener();
+    this.toggleBackBtn();
+  }
+
+  toggleBackBtn() {
+    if (CardController.INDEX === 0) {
+      h.fromId("back-btn").hide();
+    } else {
+      h.fromId("back-btn").show();
+    }
   }
 
   backListener() {
@@ -91,6 +100,7 @@ class CardController {
   drawCard() {
     const item = this.data[CardController.INDEX];
     this.drawClass = new CardFactory(item, this);
+    this.toggleBackBtn();
   }
 
   createPayload() {
@@ -260,11 +270,15 @@ class AnimationCard extends Answer {
 
   constructor(data, parent) {
     super(data, parent);
-    this.path = data.additional;
+    this.path = this.fullPath;
     this.presetClass();
     this.setTitle();
     this.createAnimationElement();
     this.submit();
+  }
+
+  get fullPath() {
+    return `./lottie/${this.data.position}.json`;
   }
 
   presetClass() {
@@ -283,7 +297,11 @@ class AnimationCard extends Answer {
   }
 
   setTitle() {
-    this.parent.title.text(this.data.name);
+    const clearTitle = stripHtml(this.data.name);
+    this.parent.title.text(clearTitle);
+    h.fromId("sub-title")
+      .show()
+      .text(clearTitle + "_title");
   }
 }
 
@@ -305,10 +323,11 @@ class ChoiseAnswer extends Answer {
   }
 
   init(data) {
+    h.fromId("sub-title").hide();
     if (!_e(data.type, "single_choice")) {
       this.isMultiSelect = true;
     } else {
-      this.submitBtn.setA("disabled", true);
+      this.submitBtn.hide();
     }
     this.build();
   }
@@ -361,10 +380,12 @@ class ChoiseAnswer extends Answer {
   };
 
   itemClick = (element) => {
-    if (!this.isMultiSelect) {
-      this.checkSelectedItems();
-    }
     h.from(element).toggle(ChoiseAnswer.selectClass);
+    if (!this.isMultiSelect) {
+      this.setValue();
+      this.parent.submitCurrentCard();
+      return;
+    }
     this.setValue();
     this.changeBtnText();
     this.changeDisabledBtn();
@@ -422,30 +443,6 @@ class ChoiseAnswer extends Answer {
 
     this.data.answers = [];
     this.data.answers = answers;
-  }
-}
-
-class CheckboxAnswer extends Answer {
-  id;
-  checkbox = h.input("checkbox").id("answer-checkbox");
-
-  constructor(data, index) {
-    super(data, index);
-
-    this.id = "answer-checkbox" + CardController.INDEX;
-    this.build();
-  }
-
-  build() {
-    this.checkbox.id(this.id).appendTo(this.container);
-    this.label = h.label(this.id).appendTo(this.container);
-
-    this.data.answers = [
-      {
-        type: "checkbox",
-        name: this.checkbox.checked(),
-      },
-    ];
   }
 }
 
