@@ -83,6 +83,8 @@ header .login-label-text {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: calc(100vh - 142px);
+  overflow: hidden;
 }
 
 .content-title {
@@ -177,17 +179,8 @@ header .login-label-text {
   height: 96px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  background: radial-gradient(
-      70.12% 70.12% at 37.92% -17.08%,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    radial-gradient(
-      62.64% 62.64% at 87.5% 95.83%,
-      rgba(255, 255, 255, 0.2) 0%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    #d7f2ff;
+  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #d7f2ff;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
   color: #1a1a1a;
   font-size: 17px;
@@ -215,17 +208,8 @@ header .login-label-text {
 }
 
 .__selected-choise {
-  background: radial-gradient(
-      70.12% 70.12% at 37.92% -17.08%,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    radial-gradient(
-      62.64% 62.64% at 87.5% 95.83%,
-      rgba(255, 255, 255, 0.2) 0%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    #78d2ff;
+  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #78d2ff;
 }
 
 input[type="checkbox"] {
@@ -306,6 +290,8 @@ input[type="checkbox"] + label:hover::before {
   background-size: cover;
   background-position: center;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
+  position: relative;
+  z-index: 10;
 }
 
 footer {
@@ -466,18 +452,27 @@ footer .footer-logo {
   overflow: hidden;
 }
 
-dotlottie-player[class="t=lottie-element"] {
+.anim-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+dotlottie-player[class="lottie-element"] {
   width: calc(100vw - 6px) !important;
   flex-grow: 1;
   position: absolute;
   /* top: -70px; */
 }
 
-.animation__podcast dotlottie-player[class="t=lottie-element"] {
+.animation__podcast dotlottie-player[class="lottie-element"] {
   /* top: -60px; */
 }
 
-.animation__no_fear dotlottie-player[class="t=lottie-element"] {
+.animation__no_fear dotlottie-player[class="lottie-element"] {
   /* top: -50px; */
 }
 
@@ -507,6 +502,7 @@ dotlottie-player[class="t=lottie-element"] {
   display: flex;
   align-items: center;
   gap: 2px;
+  position: relative;
 }
 
 .progress-line-node {
@@ -522,7 +518,13 @@ dotlottie-player[class="t=lottie-element"] {
 }
 
 .visited-node {
-  background-color: rgba(120, 210, 255, 1);
+  background-color: rgba(120, 210, 255, 1) !important;
+}
+
+.first-node {
+  position: absolute !important;
+  z-index: 10;
+  background-color: #78d2ff !important;
 }
 
 .progress-line-connection {
@@ -530,6 +532,7 @@ dotlottie-player[class="t=lottie-element"] {
   flex-grow: 1;
   background-color: transparent;
   border-radius: 1px;
+  transition: 1s ease all;
 }
 
 .show-connection {
@@ -538,6 +541,8 @@ dotlottie-player[class="t=lottie-element"] {
 
 .plane-node {
   position: relative;
+  transition: 1s ease all;
+  transform: translate(0px, 2px);
 }
 
 .plane-node::after {
@@ -576,4 +581,10 @@ dotlottie-player[class="t=lottie-element"] {
 
 .answer__single_choice .answer__coise {
   margin-bottom: 20px;
+}
+
+.plane {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

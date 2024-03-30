@@ -1,8 +1,8 @@
 const title = "title";
 const card = "card";
-const description = "description";
 const animationElement = "lottie";
 const SERVER_URL = "https://vote-api.dennis.systems/";
+let PROGRESS = null;
 let DATA = null;
 
 function init() {
@@ -56,9 +56,9 @@ class CardController {
   static PRESET_ANSWERS = StorageAnswers.getAnswers();
   card = h.fromId(card);
   title = h.fromId(title);
-  description = h.fromId(description);
   data = null;
   cardClass = null;
+  progress = null;
 
   start() {
     this.data = [...DATA];
@@ -66,6 +66,13 @@ class CardController {
     this.drawCard();
     this.backListener();
     this.toggleBackBtn();
+    this.initProgress();
+  }
+
+  initProgress() {
+    this.progress = new Progress(this.data, CardController.INDEX);
+    PROGRESS = this.progress;
+    this.progress.init();
   }
 
   toggleBackBtn() {
@@ -101,6 +108,8 @@ class CardController {
     const item = this.data[CardController.INDEX];
     this.drawClass = new CardFactory(item, this);
     this.toggleBackBtn();
+    if (!this.progress) return;
+    this.progress.change(CardController.INDEX);
   }
 
   createPayload() {
@@ -131,7 +140,6 @@ class CardController {
   clearCard() {
     this.card.text(null);
     this.title.text(null);
-    this.description.text(null);
   }
 
   changeCard() {
@@ -150,6 +158,8 @@ class CardController {
   }
 
   postFirstAnswer() {
+    this.successUpdate();
+    return;
     const path =
       "https://vote-api.dennis.systems/api/v2/questionnaire/respondent_answer/vote";
     Executor.runPostWithPayload(
@@ -174,6 +184,8 @@ class CardController {
   }
 
   postNewAnswer() {
+    this.successUpdate();
+    return;
     Executor.runPostWithPayload(
       "https://vote-api.dennis.systems/api/v2/questionnaire/respondent_answer/change/" +
         CardController.ID,
@@ -251,9 +263,8 @@ class Answer {
     }
   }
 }
-
 class AnimationCard extends Answer {
-  static lottieClassName = "t=lottie-element";
+  static lottieClassName = "lottie-element";
   static configuration = {
     background: "transparent",
     speed: "1",
@@ -264,9 +275,6 @@ class AnimationCard extends Answer {
     id: "lottie",
   };
   path;
-  animationElement = h
-    .tag("dotlottie-player")
-    .cl(AnimationCard.lottieClassName);
 
   constructor(data, parent) {
     super(data, parent);
@@ -278,7 +286,7 @@ class AnimationCard extends Answer {
   }
 
   get fullPath() {
-    return `./lottie/${this.data.position}.json`;
+    return `./lottie/${Number(this.data.position) + 1}/anim.json`;
   }
 
   presetClass() {
@@ -288,12 +296,21 @@ class AnimationCard extends Answer {
   }
 
   createAnimationElement() {
-    this.animationElement.appendTo(this.container);
-    Object.entries(AnimationCard.configuration).forEach(([key, value]) => {
-      this.animationElement.setA(key, value);
-    });
-    this.animationElement.style().width(500).height(600);
-    this.animationElement.setA("src", this.path);
+    const wrapper = h.div("anim-wrapper").appendTo(this.container);
+    const params = {
+      container: wrapper.get(),
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      path: this.fullPath,
+    }
+    if(this.data) {
+      if (this.data.position == 2) {
+        params.path = undefined;
+        params.animationData = lottie2;
+      } 
+    }
+    lottie.loadAnimation(params);
   }
 
   setTitle() {
@@ -446,6 +463,107 @@ class ChoiseAnswer extends Answer {
   }
 }
 
+class Node {
+  static VISITED = "visited-node";
+  static LAST_NODE_CLASS = "big-node";
+  line;
+  node;
+
+  constructor(line, node) {
+    this.line = line;
+    this.node = node;
+  }
+
+  setVisited() {
+    this.line.cl(Node.VISITED);
+    this.node.cl(Node.VISITED);
+  }
+
+  removeVisited() {
+    this.line.rcl(Node.VISITED);
+    this.node.rcl(Node.VISITED);
+  }
+
+  getRect() {
+    return this.node.getRect();
+  }
+
+  setLast() {
+    this.node.cl(Node.LAST_NODE_CLASS);
+  }
+}
+
+class Progress {
+  static LINE = "progress-line-connection";
+  static NODE = "progress-line-node";
+  static CONTAINER = "progress-container";
+  static PLANE = "plane-node";
+
+  toNode = null;
+  container = null;
+  plane = null;
+
+  state = [];
+
+  constructor(data, presetIndex) {
+    this.data = data;
+    this.presetIndex = presetIndex;
+  }
+
+  init() {
+    this.initPlane();
+    this.createNodes();
+    this.presetFlight();
+  }
+
+  initPlane() {
+    this.plane = h.fromId(Progress.PLANE);
+  }
+
+  createNodes() {
+    this.data.forEach((e, i) => {
+      const node = h.div(Progress.NODE);
+      const line = h.div(Progress.LINE);
+      this.container = h.fromId(Progress.CONTAINER);
+      this.container.add(line);
+      this.container.add(node);
+      this.state.push(new Node(line, node));
+      if (i === this.data.length - 1) {
+        node.cl(Node.LAST_NODE_CLASS);
+      }
+    });
+  }
+
+  presetFlight() {
+    this.toNode = this.state[this.presetIndex];
+    for (let i = 0; i < this.data.length; i++) {
+      const node = this.state[i];
+      if (i > this.presetIndex) {
+        node.removeVisited();
+      } else {
+        node.setVisited();
+      }
+
+      if (i === this.data.length - 1) {
+        node.setLast();
+      }
+    }
+  }
+
+  replace() {
+    const childRect = this.toNode.getRect();
+    const parentRect = this.container.getRect();
+    const left = childRect.left - parentRect.left;
+    this.plane.style().left(left);
+  }
+
+  change(index) {
+    this.presetIndex = index;
+    this.presetFlight();
+    this.replace();
+  }
+}
+
 function verifyResponse() {
   return true;
 }
@@ -457,6 +575,9 @@ function getQuestions() {
       .click(() => {
         h.fromId("initial-card").hide();
         h.fromId("container").show();
+        if (PROGRESS) {
+          PROGRESS.replace();
+        }
       });
   });
 

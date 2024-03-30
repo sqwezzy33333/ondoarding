@@ -424,10 +424,8 @@
         ],
       };
     </script>
-    <script
-      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
-      type="module"
-    ></script>
+    <script type="text/javascript" src="sourse.js"></script>
+    <script type="text/javascript" src="lottie.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="env.js"></script>
     <meta charset="UTF-8" />
@@ -466,13 +464,13 @@
         <div class="content">
           <div class="plane-progress-line">
             <button class="back-btn" type="button" id="back-btn"></button>
-            <div class="plane-progress-line-wrapper">
-              <div class="progress-line-node big-node visited-node"></div>
+            <div class="plane-progress-line-wrapper" id="progress-container">
+              <div class="progress-line-node big-node first-node"></div>
+              <div class="plane-node plane" id="plane-node"></div>
+              <!-- <div class="progress-line-node big-node visited-node"></div>
               <div class="progress-line-connection show-connection"></div>
               <div class="progress-line-node visited-node"></div>
               <div class="progress-line-connection show-connection"></div>
-              <div class="progress-line-node plane-node"></div>
-              <div class="progress-line-connection"></div>
               <div class="progress-line-node"></div>
               <div class="progress-line-connection"></div>
               <div class="progress-line-node"></div>
@@ -483,7 +481,9 @@
               <div class="progress-line-connection"></div>
               <div class="progress-line-node"></div>
               <div class="progress-line-connection"></div>
-              <div class="progress-line-node big-node"></div>
+              <div class="progress-line-node"></div>
+              <div class="progress-line-connection"></div>
+              <div class="progress-line-node big-node"></div> -->
             </div>
           </div>
           <h2 id="title" class="content-title"></h2>
