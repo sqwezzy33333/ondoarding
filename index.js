@@ -158,8 +158,6 @@ class CardController {
   }
 
   postFirstAnswer() {
-    this.successUpdate();
-    return;
     const path =
       "https://vote-api.dennis.systems/api/v2/questionnaire/respondent_answer/vote";
     Executor.runPostWithPayload(
@@ -184,8 +182,6 @@ class CardController {
   }
 
   postNewAnswer() {
-    this.successUpdate();
-    return;
     Executor.runPostWithPayload(
       "https://vote-api.dennis.systems/api/v2/questionnaire/respondent_answer/change/" +
         CardController.ID,
@@ -286,7 +282,7 @@ class AnimationCard extends Answer {
   }
 
   get fullPath() {
-    return `./lottie/${Number(this.data.position) + 1}/anim.json`;
+    return `./lottie/${this.data.additional}/anim.json`;
   }
 
   presetClass() {
@@ -303,12 +299,12 @@ class AnimationCard extends Answer {
       loop: true,
       autoplay: true,
       path: this.fullPath,
-    }
-    if(this.data) {
+    };
+    if (this.data) {
       if (this.data.position == 2) {
         params.path = undefined;
         params.animationData = lottie2;
-      } 
+      }
     }
     lottie.loadAnimation(params);
   }
