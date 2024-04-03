@@ -196,19 +196,25 @@ header .login-label-text {
   font-weight: 600;
   line-height: 22px;
   flex-shrink: 0;
+  gap: 30px;
 }
 
 .answer__multiple_choice .answer__choise-item::after {
   content: "";
-  width: 56px;
+  width: 26px;
   height: 26px;
-  padding-left: 30px;
   margin-left: auto;
   background-image: url("./assets/checkbox-unchecked.svg");
-  background-position: right;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: 26px 26px;
   background-color: transparent;
+  flex-shrink: 0;
+}
+
+.answer__multiple_choice .answer__choise-item.__selected-choise::after {
+  background-image: url("./assets/checkbox-unchecked.svg"), url("./assets/checkbox-checked.svg");
+  background-size: 26px 26px, 15px 14px;
 }
 
 .answer__container.answer__checkbox {
@@ -310,6 +316,7 @@ input[type="checkbox"] + label:hover::before {
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
   position: relative;
   z-index: 10;
+  flex-shrink: 0;
 }
 
 footer {
