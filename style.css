@@ -179,8 +179,17 @@ header .login-label-text {
   height: 96px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%),
-    radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #d7f2ff;
+  background: radial-gradient(
+      70.12% 70.12% at 37.92% -17.08%,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      62.64% 62.64% at 87.5% 95.83%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #d7f2ff;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
   color: #1a1a1a;
   font-size: 17px;
@@ -208,8 +217,17 @@ header .login-label-text {
 }
 
 .__selected-choise {
-  background: radial-gradient(70.12% 70.12% at 37.92% -17.08%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%),
-    radial-gradient(62.64% 62.64% at 87.5% 95.83%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #78d2ff;
+  background: radial-gradient(
+      70.12% 70.12% at 37.92% -17.08%,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      62.64% 62.64% at 87.5% 95.83%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #78d2ff;
 }
 
 input[type="checkbox"] {
@@ -459,6 +477,7 @@ footer .footer-logo {
   justify-content: center;
   flex: 1 1 auto;
   overflow: hidden;
+  width: 100%;
 }
 
 dotlottie-player[class="lottie-element"] {

@@ -106,6 +106,9 @@ class CardController {
 
   drawCard() {
     const item = this.data[CardController.INDEX];
+    if (!item) {
+      return;
+    }
     this.drawClass = new CardFactory(item, this);
     this.toggleBackBtn();
     if (!this.progress) return;
@@ -166,7 +169,11 @@ class CardController {
         CardController.ID = response.r2q;
         this.successUpdate();
       },
-      ANSWERS_STATE
+      ANSWERS_STATE,
+      () => {
+        StorageAnswers.clear();
+        location.reload();
+      }
     );
   }
 
@@ -188,7 +195,11 @@ class CardController {
       () => {
         this.successUpdate();
       },
-      ANSWERS_STATE
+      ANSWERS_STATE,
+      () => {
+        StorageAnswers.clear();
+        location.reload();
+      }
     );
   }
 }
