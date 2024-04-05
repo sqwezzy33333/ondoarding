@@ -217,6 +217,10 @@ header .login-label-text {
   background-size: 26px 26px, 15px 14px;
 }
 
+.answer__multiple_choice {
+  margin-bottom: 80px;
+}
+
 .answer__container.answer__checkbox {
   margin: 0;
   padding: 0;
@@ -299,7 +303,7 @@ input[type="checkbox"] + label:hover::before {
 .submit-btn {
   font-family: "Roboto", sans-serif;
   margin: 10px 20px 20px;
-  width: 100%;
+  width: calc(100% - 40px);
   cursor: pointer;
   height: 50px;
   border-radius: 42px;
@@ -314,9 +318,10 @@ input[type="checkbox"] + label:hover::before {
   background-size: cover;
   background-position: center;
   box-shadow: 0px 4px 6px 0px rgba(255, 255, 255, 0.2) inset;
-  position: relative;
+  position: fixed;
   z-index: 10;
   flex-shrink: 0;
+  bottom: 0;
 }
 
 footer {
@@ -368,6 +373,7 @@ footer .footer-logo {
   width: 100%;
   height: 50%;
   z-index: 1;
+  box-sizing: border-box;
 }
 
 .initial-card-content {
@@ -478,13 +484,35 @@ footer .footer-logo {
 }
 
 .anim-wrapper {
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1 1 auto;
   overflow: hidden;
-  width: 100%;
+  width: 100vw;
+}
+
+.animation__podcast .anim-wrapper {
+  top: -65px;
+}
+
+.animation__no_fear .anim-wrapper {
+  top: -60px;
+}
+
+.animation__tracking .anim-wrapper {
+  top: -130px;
+}
+
+.animation__forecasts .anim-wrapper {
+  width: calc(100vw - 10px);
+  top: -58px;
+}
+
+.animation__turbulence .anim-wrapper {
+  width: calc(100vw + 30px);
+  top: -90px;
 }
 
 dotlottie-player[class="lottie-element"] {
