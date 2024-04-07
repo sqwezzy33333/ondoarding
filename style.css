@@ -109,7 +109,6 @@ header .login-label-text {
   margin-top: 20px;
   flex-grow: 1;
   height: 100%;
-  overflow: scroll;
 }
 
 .answer__animation .submit-btn {
@@ -133,6 +132,12 @@ header .login-label-text {
 
 .content:has(.submit-btn) {
   height: 100%;
+  margin-bottom: 80px;
+  overflow: hidden;
+}
+
+.content:has(.submit-btn.hidden) {
+  margin-bottom: 0;
 }
 
 .wrapper::after {
@@ -167,7 +172,7 @@ header .login-label-text {
   gap: 10px;
   flex-grow: 1;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .answer__choise-item {
@@ -217,9 +222,9 @@ header .login-label-text {
   background-size: 26px 26px, 15px 14px;
 }
 
-.answer__multiple_choice {
+/* .answer__multiple_choice {
   margin-bottom: 80px;
-}
+} */
 
 .answer__container.answer__checkbox {
   margin: 0;
@@ -495,10 +500,12 @@ footer .footer-logo {
 
 .animation__podcast .anim-wrapper {
   top: -65px;
+  width: calc(100vw - 4px);
 }
 
 .animation__no_fear .anim-wrapper {
   top: -60px;
+  width: calc(100vw - 6px);
 }
 
 .animation__tracking .anim-wrapper {
@@ -511,7 +518,7 @@ footer .footer-logo {
 }
 
 .animation__turbulence .anim-wrapper {
-  width: calc(100vw + 30px);
+  width: calc(100vw + 26px);
   top: -90px;
 }
 
