@@ -38,6 +38,10 @@ body {
   height: 100%;
 }
 
+html {
+  height: 100%;
+}
+
 p {
   margin: 0;
   padding: 0;
@@ -83,7 +87,8 @@ header .login-label-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 142px);
+  height: 100%;
+  /* height: calc(100vh - 142px); */
   overflow: hidden;
 }
 
@@ -119,7 +124,7 @@ header .login-label-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   padding: 0 20px;
   max-width: 450px;
   width: 100%;
@@ -366,7 +371,7 @@ footer .footer-logo {
 }
 
 #initial-card {
-  height: 100vh;
+  height: 100%;
   background: #d7f2ff;
   position: relative;
   width: 100%;
