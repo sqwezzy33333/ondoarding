@@ -654,6 +654,7 @@ dotlottie-player[class="lottie-element"] {
 .wrapper {
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
 .answer__single_choice .answer__coise {
