@@ -312,11 +312,10 @@ class AnimationCard extends Answer {
       path: this.getFullPath(),
     };
     if (this.data) {
-      console.log(this.data.additional);
-      if (this.data.additional == '3') {
-        params.path = undefined;
-        params.animationData = lottie2;
-      }
+      // if (this.data.additional == '3') {
+      //   params.path = undefined;
+      //   params.animationData = lottie2;
+      // }
       if (this.data.additional == '3') {
         params.path = this.getFullPath('1');
       }
