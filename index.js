@@ -292,7 +292,7 @@ class AnimationCard extends Answer {
     this.submit();
   }
 
-  get fullPath() {
+  getFullPath(path = this.data.additional) {
     return `./lottie/${this.data.additional}/anim.json`;
   }
 
@@ -309,12 +309,21 @@ class AnimationCard extends Answer {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      path: this.fullPath,
+      path: this.getFullPath(),
     };
     if (this.data) {
-      if (this.data.position == 2) {
+      if (this.data.additional == 2) {
         params.path = undefined;
         params.animationData = lottie2;
+      }
+      if (this.data.additional == 3) {
+        params.path = this.getFullPath('1');
+      }
+      if (this.data.additional == 4) {
+        params.path = this.getFullPath('2');
+      }
+      if (this.data.additional == 5) {
+        params.path = this.getFullPath('1');
       }
     }
     lottie.loadAnimation(params);
