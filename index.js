@@ -151,6 +151,7 @@ class CardController {
   }
 
   submitCurrentCard() {
+    lottie.stop();
     this.postAnswer(this.getRespondent);
   }
 
@@ -316,18 +317,18 @@ class AnimationCard extends Answer {
       //   params.path = undefined;
       //   params.animationData = lottie2;
       // }
-      if (this.data.additional == '3') {
-        params.path = this.getFullPath('1');
+      if (this.data.additional == "3") {
+        params.path = this.getFullPath("1");
       }
-      if (this.data.additional == '4') {
-        params.path = this.getFullPath('2');
+      if (this.data.additional == "4") {
+        params.path = this.getFullPath("2");
       }
-      if (this.data.additional == '5') {
-        params.path = this.getFullPath('1');
+      if (this.data.additional == "5") {
+        params.path = this.getFullPath("1");
       }
-
     }
     lottie.loadAnimation(params);
+    lottie.play();
   }
 
   setTitle() {
