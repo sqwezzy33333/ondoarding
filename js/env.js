@@ -1,5 +1,5 @@
 class Environment {
-  static scriptPath = "https://js.flaw.space/magic/";
+  static scriptPath = "https://js.dennis.systems/magic/";
   static self = "self";
   static version = 1;
 }
