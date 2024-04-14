@@ -2,8 +2,10 @@ const title = "title";
 const card = "card";
 const animationElement = "lottie";
 const SERVER_URL = "https://vote-api.dennis.systems/";
+let analitics = null;
 let PROGRESS = null;
 let DATA = null;
+let ONLOADED_DATA = null;
 
 function init() {
   getQuestions();
@@ -128,6 +130,7 @@ class CardController {
     const index = ANSWERS_STATE.findIndex(
       (element) => element.question == payload.question
     );
+    this.postAnalitics(payload)
     if (index !== -1) {
       ANSWERS_STATE[index] = payload;
     } else {
@@ -138,6 +141,11 @@ class CardController {
       return;
     }
     this.postNewAnswer();
+  }
+
+  postAnalitics(data) {
+    const clone = {...data};
+    analitics.createEvent(clone);
   }
 
   clearCard() {
@@ -313,7 +321,7 @@ class AnimationCard extends Answer {
       path: this.getFullPath(),
     };
     if (this.data) {
-      if (this.data.additional == '3') {
+      if (this.data.additional == "3") {
         params.path = undefined;
         params.animationData = lottie2;
       } else {
@@ -579,7 +587,7 @@ function verifyResponse() {
   return true;
 }
 
-function getQuestions() {
+function continueButtonListener() {
   waitForElm("init-btn").then((elem) => {
     h.from(elem)
       .text("button.continue")
@@ -589,13 +597,20 @@ function getQuestions() {
         if (PROGRESS) {
           PROGRESS.replace();
         }
+        if(analitics) {
+          analitics.postEvent('start continue');
+        }
       });
   });
+}
 
+function getQuestions() {
+  this.continueButtonListener();
   const PATH =
     "https://vote-api.dennis.systems/api/v2/questionnaire/question/template/9552";
   Executor.runGet(PATH, (data) => {
     DATA = data.content;
+    ONLOADED_DATA = JSON.parse(JSON.stringify(DATA));
     MagicPage.translatePage();
     new CardController().start();
   });
@@ -626,3 +641,55 @@ function waitForElm(selector) {
     });
   });
 }
+
+// ANALITICS=================================
+
+const STAT_FIRST_EVENT = "start page loaded";
+const STAT_NONE_PARAM = "none";
+
+class Analitics {
+  data = STAT__EVENT_NAMES;
+  constructor() {
+    this.postInitEvent();
+  }
+
+  postInitEvent() {
+    amplitude.getInstance().logEvent(STAT_FIRST_EVENT);
+  }
+
+  postEvent(name, data = null) {
+    if(data) {
+      amplitude.getInstance().logEvent(name, data);
+    } else {
+      amplitude.getInstance().logEvent(name);
+    }
+  }
+
+  createEvent(data) {
+    const question = this.getQueationElement(data.question);
+    const clear = stripHtml(question.name);
+    const eventName = this.data[clear];
+    let answers = this.getAnswers(question, data.answers);
+    if(!answers.length && question.answers.length) {
+      answers = [STAT_NONE_PARAM];
+    }
+    const params = {
+      answers: answers
+    }
+    if(!question.answers || !question.answers.length) {
+      params = null;
+    }
+    this.postEvent(eventName, params);
+  }
+
+  getQueationElement(id) {
+    return ONLOADED_DATA.find((el) => el.id === id);
+  }
+
+  getAnswers(question, answers) {
+    const toIds = answers.map((e) => e.name);
+    return question.answers.filter((answer) => toIds.includes(answer.id)).map((el) => this.data[el.name])
+  }
+}
+
+analitics = new Analitics();
