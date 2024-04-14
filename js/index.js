@@ -673,7 +673,7 @@ class Analitics {
     if(!answers.length && question.answers.length) {
       answers = [STAT_NONE_PARAM];
     }
-    const params = {
+    let params = {
       answers: answers
     }
     if(!question.answers || !question.answers.length) {
