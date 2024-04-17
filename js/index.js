@@ -794,7 +794,7 @@ class LoadingStep {
 }
 
 function delayCheck(speed) {
-  return (speed > 15 && speed < 25) || (speed > 45 && speed < 60)
+  return (speed > 15 && speed < 20) || (speed > 45 && speed < 60)
 }
 
 LOADING = new LoadingStep()
