@@ -602,6 +602,7 @@ function continueButtonListener() {
         if(analitics) {
           analitics.postEvent('start continue');
         }
+        LOADING.init();
       });
   });
 }
@@ -759,7 +760,7 @@ class LoadingStep {
       context.fillStyle = color[2];
       context.textAlign = 'center';
       context.textBaseline = 'middle';
-      context.fillText(n.toFixed(0) + '%', centerX, centerY);
+      context.fillText(n.toFixed(0) + '%', centerX, centerY + 6);
       context.stroke();
       context.closePath();
       context.restore();
