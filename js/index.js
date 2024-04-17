@@ -774,10 +774,11 @@ class LoadingStep {
       progressCircle(speed);
       text(speed);
       if (speed > angle * 100) clearTimeout(timer);
-      if (speed < 60 && speed > 45) {
+
+      if (delayCheck(speed)) {
         speed += 0.1;
       } else {
-        speed += 0.4;
+        speed += 0.37;
       }
       if (speed > 100 && !wasCallback) {
         callback();
@@ -790,6 +791,10 @@ class LoadingStep {
       console.log('sdsdsd')
     });
   }
+}
+
+function delayCheck(speed) {
+  return (speed > 15 && speed < 25) || (speed > 45 && speed < 60)
 }
 
 LOADING = new LoadingStep()
