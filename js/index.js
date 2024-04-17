@@ -1,17 +1,18 @@
 const title = "title";
 const card = "card";
 const animationElement = "lottie";
+const main_wrapper = 'main-wrapper';
 const SERVER_URL = "https://vote-api.dennis.systems/";
+let ANSWERS_STATE = [];
 let analitics = null;
 let PROGRESS = null;
 let DATA = null;
 let ONLOADED_DATA = null;
+let LOADING = null
 
 function init() {
   getQuestions();
 }
-
-let ANSWERS_STATE = [];
 
 class StorageAnswers {
   static ANSWERS_KEY = "onboard__answers__";
@@ -164,8 +165,9 @@ class CardController {
   }
 
   end() {
-    this.clearCard();
-    this.title.text("global.success");
+  if(LOADING) {
+    LOADING.init();
+  }
     StorageAnswers.clear();
   }
 
@@ -693,3 +695,100 @@ class Analitics {
 }
 
 analitics = new Analitics();
+
+// loading
+
+class LoadingStep {
+  wrapper;
+  draw;
+
+  createContainer() {
+    this.wrapper = h.fromId(main_wrapper).text(null);
+    this.container = h.div('loading-container').appendTo(this.wrapper);
+    this.draw = h.tag('canvas').cl('loading').appendTo(this.container);
+    h.div('loading-text').text('loading.text').appendTo(this.container);
+  }
+
+  init() {
+    this.createContainer();
+
+    let drawProgressPercent = (callback) => {
+    const draw = this.draw.get();
+    draw.width = '170';
+    draw.height = '170';
+    const context = draw.getContext('2d');
+    const centerX = draw.width / 2;
+    const centerY = draw.height / 2;
+    const angle = 1;
+    const color = ['#D7F2FF', '#7FDAFD', '#030303'];
+    const font = 'bold 42px Roboto';
+    let speed = 0;
+    context.lineCap = 'round';
+    let wasCallback = false;
+
+    function greyCircle() {
+      context.save();
+      context.strokeStyle = color[0];
+      context.lineWidth = 16;
+      context.beginPath();
+      context.arc(centerX, centerY, centerX - 15, 0, 2 * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    }
+
+    function progressCircle(n) {
+      context.save();
+      var grad= context.createLinearGradient(50, 50, 150, 150);
+      grad.addColorStop(0, "#7FDAFD");
+      grad.addColorStop(1, "#3272EA");
+
+      context.strokeStyle = grad;
+      context.lineWidth = 16;
+      context.beginPath();
+      context.arc(centerX, centerY, centerX - 15, -Math.PI / 2, ((n * 3.6 - 90) * Math.PI) / 180, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    }
+
+    function text(n) {
+      context.save();
+      context.beginPath();
+      context.font = font; 
+      context.fillStyle = color[2];
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText(n.toFixed(0) + '%', centerX, centerY);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    }
+
+    let timer = null;
+    (function drawFrame() {
+      timer = setTimeout(drawFrame, 10);
+      context.clearRect(0, 0, draw.width, draw.height);
+      greyCircle();
+      progressCircle(speed);
+      text(speed);
+      if (speed > angle * 100) clearTimeout(timer);
+      if (speed < 60 && speed > 45) {
+        speed += 0.1;
+      } else {
+        speed += 0.4;
+      }
+      if (speed > 100 && !wasCallback) {
+        callback();
+        wasCallback = true;
+      }
+    })();
+    }
+
+    drawProgressPercent(() => {
+      console.log('sdsdsd')
+    });
+  }
+}
+
+LOADING = new LoadingStep()

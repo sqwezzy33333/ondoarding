@@ -68,7 +68,7 @@ const STAT__EVENT_NAMES = {
   "answer.within.week": "within a week",
   "answer.tomorray": "tomorrow",
   "answer.today": "today",
-  "answer.never.fear": 'I don’t fly',
+  "answer.never.fear": "I don’t fly",
   "button.none": "",
   "button.continue": "",
   "global.success": "",
@@ -262,7 +262,7 @@ const GLOBAL_TRANSLATIONS = {
     {
       "answer.today": "Сегодня",
     },
-    {"answer.never.fear": 'Я не летаю, потому что боюсь'},
+    { "answer.never.fear": "Я не летаю, потому что боюсь" },
     {
       "button.none": "Ничего из вышеперечисленного",
     },
@@ -272,6 +272,11 @@ const GLOBAL_TRANSLATIONS = {
     { "global.success": "Успешно" },
     { "global.initial": "Боитесь летать?" },
     { "global.name": "Flight Buddy" },
+    {
+      "global.agreement":
+        '<p class="agreement-text">By pressing Continue I hereby agree to processing of my personal data. <a class="agreement-link" href="#">Privacy Policy</a> and <a class="agreement-link" href="#">Terms and Conditions</a> apply.</p>',
+    },
+    { "loading.text": "Обработка ваших ответов" },
   ],
 
   "en-EN": [
@@ -398,7 +403,7 @@ const GLOBAL_TRANSLATIONS = {
     {
       "answer.engine": "Listen to engine sounds",
     },
-    {"answer.never.fear": 'I don’t fly because of fear'},
+    { "answer.never.fear": "I don’t fly because of fear" },
     {
       "answer.fear.to.move": "Are too afraid to move",
     },
@@ -487,5 +492,6 @@ const GLOBAL_TRANSLATIONS = {
       "global.agreement":
         '<p class="agreement-text">By pressing Continue I hereby agree to processing of my personal data. <a class="agreement-link" href="#">Privacy Policy</a> and <a class="agreement-link" href="#">Terms and Conditions</a> apply.</p>',
     },
+    { "loading.text": "Processing your responses" },
   ],
 };
